@@ -6,13 +6,13 @@ import { AnalyticService } from './analytic.service';
 export class AnalyticController {
   constructor(private readonly analyticService: AnalyticService) {}
 
-  @Get('/:key')
+  @Get('/:alias')
   async createShortUrl(
-    @Param('key') key: string,
+    @Param('alias') alias: string,
   ): Promise<GetAnalyticsResponseDto> {
     const [clickCount, lastIps] = await Promise.all([
-      this.analyticService.getUrlClickCount(key),
-      this.analyticService.getLastIps(key),
+      this.analyticService.getUrlClickCount(alias),
+      this.analyticService.getLastIps(alias),
     ]);
 
     return {

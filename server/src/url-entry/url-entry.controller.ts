@@ -38,7 +38,7 @@ export class UrlEntryController {
     });
 
     if (sameEntry) {
-      const shortUrl = this.urlEntryService.makeShortUrl(sameEntry.key);
+      const shortUrl = this.urlEntryService.makeShortUrl(sameEntry.alias);
       return { shortUrl };
     }
 
@@ -56,13 +56,13 @@ export class UrlEntryController {
     });
   }
 
-  @Get('/:key')
+  @Get('/:alias')
   async handleRedirect(
-    @Param('key') key: string,
+    @Param('alias') alias: string,
     @Res() res: Response,
     @RealIp() ip: string,
   ) {
-    const entry = await this.urlEntryService.getUrlEntry(key);
+    const entry = await this.urlEntryService.getUrlEntry(alias);
     if (!entry || entry.isDeleted()) {
       throw new NotFoundException('URL not found');
     }
@@ -71,14 +71,14 @@ export class UrlEntryController {
       throw new GoneException('URL expired');
     }
 
-    await this.urlClickService.createUrlClickEntry(key, ip);
+    await this.urlClickService.createUrlClickEntry(alias, ip);
 
     res.redirect(entry.originalUrl);
   }
 
-  @Get('/info/:key')
-  async getUrlInfo(@Param('key') key: string) {
-    const entry = await this.urlEntryService.getUrlEntry(key);
+  @Get('/info/:alias')
+  async getUrlInfo(@Param('alias') alias: string) {
+    const entry = await this.urlEntryService.getUrlEntry(alias);
     if (!entry || entry.isDeleted()) {
       throw new NotFoundException('URL not found');
     }
@@ -87,7 +87,7 @@ export class UrlEntryController {
       throw new GoneException('URL expired');
     }
 
-    const clickCount = await this.urlEntryService.getUrlClickCount(key);
+    const clickCount = await this.urlEntryService.getUrlClickCount(alias);
 
     return {
       originalUrl: entry.originalUrl,
@@ -96,9 +96,9 @@ export class UrlEntryController {
     };
   }
 
-  @Delete('/:key')
-  async deleteUrlEntry(@Param('key') key: string) {
-    const entry = await this.urlEntryService.getUrlEntry(key);
+  @Delete('/:alias')
+  async deleteUrlEntry(@Param('alias') alias: string) {
+    const entry = await this.urlEntryService.getUrlEntry(alias);
     if (!entry || entry.isDeleted()) {
       throw new NotFoundException('URL not found');
     }

@@ -8,8 +8,8 @@ import {
   IsUrl,
   MaxLength,
 } from 'class-validator';
-import { MAX_KEY_LENGTH } from '../../core/constants/key';
 import { IsDateInFuture } from '../../decorators/is-date-in-future.decorator';
+import { MAX_ALIAS_LENGTH } from '../../core/constants/alias';
 
 export class CreateShortUrlResponseDto {
   shortUrl: string;
@@ -40,7 +40,7 @@ export class CreateShortUrlRequestBodyDto {
     required: false,
   })
   @IsString()
-  @MaxLength(MAX_KEY_LENGTH)
+  @MaxLength(MAX_ALIAS_LENGTH)
   @IsAlphanumeric()
   @IsOptional()
   readonly alias?: string;

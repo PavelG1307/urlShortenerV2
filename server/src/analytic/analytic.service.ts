@@ -3,16 +3,16 @@ import { UrlClick } from '../models/url-click.model';
 
 @Injectable()
 export class AnalyticService {
-  async getUrlClickCount(key: string): Promise<number> {
-    const count = await UrlClick.count({ where: { key } });
+  async getUrlClickCount(alias: string): Promise<number> {
+    const count = await UrlClick.count({ where: { alias } });
 
     return count;
   }
 
-  async getLastIps(key: string, limit: number = 5): Promise<string[]> {
+  async getLastIps(alias: string, limit: number = 5): Promise<string[]> {
     const urlClicks = await UrlClick.findAll({
       attributes: ['ip'],
-      where: { key },
+      where: { alias },
       order: [['created_at', 'DESC']],
       limit,
     });

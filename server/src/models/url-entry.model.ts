@@ -5,7 +5,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { MAX_KEY_LENGTH } from '../core/constants/key';
+import { MAX_ALIAS_LENGTH } from '../core/constants/alias';
 
 @Table({
   tableName: 'url_entries',
@@ -14,10 +14,10 @@ import { MAX_KEY_LENGTH } from '../core/constants/key';
 })
 export class UrlEntry extends Model<UrlEntry> {
   @Column({
-    type: DataType.STRING(MAX_KEY_LENGTH),
+    type: DataType.STRING(MAX_ALIAS_LENGTH),
     primaryKey: true,
   })
-  key: string;
+  alias: string;
 
   @Column({
     type: DataType.TEXT,
