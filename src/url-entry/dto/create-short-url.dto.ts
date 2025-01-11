@@ -8,8 +8,8 @@ import {
   IsUrl,
   MaxLength,
 } from 'class-validator';
-import { MAX_KEY_LENGTH } from 'src/core/constants/key';
-import { IsDateInFuture } from 'src/decorators/is-date-in-future.decorator';
+import { MAX_KEY_LENGTH } from '../../core/constants/key';
+import { IsDateInFuture } from '../../decorators/is-date-in-future.decorator';
 
 export class CreateShortUrlResponseDto {
   shortUrl: string;

@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { HashModule } from 'src/hash/hash.module';
+import { HashModule } from '../hash/hash.module';
 import { UrlEntryService } from './url-entry.service';
 import { UrlEntryController } from './url-entry.controller';
-import { UrlClickModule } from 'src/url-click/url-click.module';
+import { UrlClickModule } from '../url-click/url-click.module';
 
 @Module({
   controllers: [UrlEntryController],

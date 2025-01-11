@@ -7,3 +7,5 @@ compose:
 	docker-compose -f ./docker-compose.yml up -d --force-recreate
 migrate:
 	NODE_ENV=production npx sequelize-cli db:migrate
+run-tests:
+	npm run test:e2e

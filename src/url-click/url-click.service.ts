@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UrlClick } from 'src/models/url-click.model';
+import { UrlClick } from '../models/url-click.model';
 
 @Injectable()
 export class UrlClickService {

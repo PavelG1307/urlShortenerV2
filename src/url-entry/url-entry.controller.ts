@@ -16,7 +16,7 @@ import {
   CreateShortUrlResponseDto,
 } from './dto/create-short-url.dto';
 import { Response } from 'express';
-import { UrlClickService } from 'src/url-click/url-click.service';
+import { UrlClickService } from '../url-click/url-click.service';
 import { RealIp } from 'nestjs-real-ip';
 
 @Controller()

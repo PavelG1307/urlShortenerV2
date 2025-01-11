@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { HashService } from 'src/hash/hash.service';
-import { UrlEntry } from 'src/models/url-entry.model';
+import { HashService } from '../hash/hash.service';
+import { UrlEntry } from '../models/url-entry.model';
 import {
   CreateShortUrlRequestBodyDto,
   CreateShortUrlResponseDto,
 } from './dto/create-short-url.dto';
 import { Op, WhereOptions } from 'sequelize';
-import { UrlClick } from 'src/models/url-click.model';
+import { UrlClick } from '../models/url-click.model';
 
 @Injectable()
 export class UrlEntryService {

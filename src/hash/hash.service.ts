@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { HashId } from 'src/models/hash-id.model';
+import { HashId } from '../models/hash-id.model';
 import HashIds from 'hashids';
 import { Transaction } from 'sequelize';
-import { DEFAULT_KEY_LENGTH } from 'src/core/constants/key';
+import { DEFAULT_KEY_LENGTH } from '../core/constants/key';
 
 @Injectable()
 export class HashService {

@@ -5,7 +5,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { MAX_KEY_LENGTH } from 'src/core/constants/key';
+import { MAX_KEY_LENGTH } from '../core/constants/key';
 
 @Table({
   tableName: 'url_entries',
