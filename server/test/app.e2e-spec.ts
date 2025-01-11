@@ -26,13 +26,13 @@ describe('AppController (e2e)', () => {
     expect(postResponse.body).toHaveProperty('shortUrl');
     const shortUrl = postResponse.body.shortUrl;
 
-    const key = shortUrl.substring(shortUrl.lastIndexOf('/') + 1);
-    expect(key).toBeDefined();
-    expect(key).not.toBe('');
-    expect(key.length).toBe(6);
+    const alias = shortUrl.substring(shortUrl.lastIndexOf('/') + 1);
+    expect(alias).toBeDefined();
+    expect(alias).not.toBe('');
+    expect(alias.length).toBe(6);
 
     const getResponse = await request(app.getHttpServer())
-      .get(`/${key}`)
+      .get(`/${alias}`)
       .expect(302);
 
     expect(getResponse.header).toHaveProperty('location', originalUrl);

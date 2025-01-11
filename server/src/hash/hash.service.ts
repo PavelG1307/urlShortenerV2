@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { HashId } from '../models/hash-id.model';
 import HashIds from 'hashids';
 import { Transaction } from 'sequelize';
-import { DEFAULT_KEY_LENGTH } from '../core/constants/key';
 import { ConfigService } from '@nestjs/config';
+import { DEFAULT_ALIAS_LENGTH } from '../core/constants/alias';
 
 @Injectable()
 export class HashService {
@@ -12,7 +12,7 @@ export class HashService {
   constructor() {
     const configService = new ConfigService();
     const salt = configService.get<string>('hash.salt');
-    this.hashIds = new HashIds(salt, DEFAULT_KEY_LENGTH);
+    this.hashIds = new HashIds(salt, DEFAULT_ALIAS_LENGTH);
   }
 
   async createUniqueHash(opts: { trx?: Transaction } = {}): Promise<string> {

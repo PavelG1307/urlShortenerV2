@@ -21,18 +21,19 @@ export class UrlEntryService {
     expiresAt?: Date;
     alias?: string;
   }): Promise<CreateShortUrlResponseDto> {
-    const { originalUrl, expiresAt, alias } = params;
+    const { originalUrl, expiresAt } = params;
 
     const trx = await UrlEntry.sequelize.transaction();
     try {
-      const key = alias || (await this.hashService.createUniqueHash({ trx }));
+      const alias =
+        params.alias || (await this.hashService.createUniqueHash({ trx }));
       await UrlEntry.create(
-        { key, originalUrl, expiresAt },
+        { alias, originalUrl, expiresAt },
         { transaction: trx },
       );
       await trx.commit();
 
-      return { shortUrl: this.makeShortUrl(key) };
+      return { shortUrl: this.makeShortUrl(alias) };
     } catch (e) {
       await trx.rollback();
 
@@ -40,9 +41,9 @@ export class UrlEntryService {
     }
   }
 
-  public makeShortUrl(key: string): string {
+  public makeShortUrl(alias: string): string {
     const apiUrl = this.configService.get<string>('apiUrl');
-    return `${apiUrl}/${key}`;
+    return `${apiUrl}/${alias}`;
   }
 
   public isSameUrlEntry(
@@ -62,12 +63,12 @@ export class UrlEntryService {
     return entry.expiresAt === requestBody.expiresAt;
   }
 
-  async getUrlEntry(key: string): Promise<UrlEntry | null> {
-    return UrlEntry.findByPk(key);
+  async getUrlEntry(alias: string): Promise<UrlEntry | null> {
+    return UrlEntry.findByPk(alias);
   }
 
-  async getLastUrlClicks(key: string): Promise<UrlEntry | null> {
-    return UrlEntry.findByPk(key);
+  async getLastUrlClicks(alias: string): Promise<UrlEntry | null> {
+    return UrlEntry.findByPk(alias);
   }
 
   getSameUrlEntry(params: {
@@ -84,7 +85,7 @@ export class UrlEntryService {
     };
 
     if (alias) {
-      whereCondition.key = alias;
+      whereCondition.alias = alias;
     }
 
     return UrlEntry.findOne({
@@ -98,8 +99,8 @@ export class UrlEntryService {
     await entry.save();
   }
 
-  async getUrlClickCount(key: string): Promise<number> {
-    const count = await UrlClick.count({ where: { key } });
+  async getUrlClickCount(alias: string): Promise<number> {
+    const count = await UrlClick.count({ where: { alias } });
 
     return count;
   }

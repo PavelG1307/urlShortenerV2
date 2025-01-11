@@ -6,7 +6,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { MAX_KEY_LENGTH } from '../core/constants/key';
+import { MAX_ALIAS_LENGTH } from '../core/constants/alias';
 
 @Table({
   tableName: 'url_clicks',
@@ -22,12 +22,12 @@ export class UrlClick extends Model<UrlClick> {
   })
   id: number;
 
-  @Index('url_clicks_key_index')
+  @Index('url_clicks_alias_index')
   @Column({
-    type: DataType.STRING(MAX_KEY_LENGTH),
+    type: DataType.STRING(MAX_ALIAS_LENGTH),
     allowNull: false,
   })
-  key: string;
+  alias: string;
 
   @Column({
     type: DataType.INET,

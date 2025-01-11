@@ -16,16 +16,16 @@ services:
     build: ./server
     environment:
       NODE_ENV: production
-      PORT: 3010
+      PORT: 3001
       API_PREFIX: /api/v1
-      DB_HOST: 127.0.0.1
+      DB_HOST: db
       DB_PORT: 5432
       DB_USER: username
       DB_PASSWORD: DSgasdhg
       DB_NAME: url_shortener_local
       ORIGINS: http://localhost:3000
       HASH_SALT: dsdfsf
-      API_URL: http://localhost:3010
+      API_URL: http://127.0.0.1:3001
     depends_on:
       - db
     networks:
@@ -42,7 +42,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      REACT_APP_API_URL: "http://server:3001"
+      REACT_APP_API_URL: "http://127.0.0.1:3001"
 
 networks:
   backend:
