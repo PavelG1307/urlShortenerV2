@@ -25,7 +25,8 @@ export class UrlEntryService {
 
     const trx = await UrlEntry.sequelize.transaction();
     try {
-      const alias = params.alias || (await this.hashService.createUniqueHash({ trx }));
+      const alias =
+        params.alias || (await this.hashService.createUniqueHash({ trx }));
       await UrlEntry.create(
         { alias, originalUrl, expiresAt },
         { transaction: trx },
