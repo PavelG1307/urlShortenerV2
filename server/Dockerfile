@@ -5,7 +5,7 @@ WORKDIR /app
 COPY server/package*.json ./
 RUN npm install
 
-COPY server ./
+COPY . .
 
 RUN npm run build
 
