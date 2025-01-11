@@ -7,10 +7,14 @@ import {
 } from './dto/create-short-url.dto';
 import { Op, WhereOptions } from 'sequelize';
 import { UrlClick } from '../models/url-click.model';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class UrlEntryService {
-  constructor(private readonly hashService: HashService) {}
+  constructor(
+    private readonly hashService: HashService,
+    private readonly configService: ConfigService,
+  ) {}
 
   async createShortUrl(params: {
     originalUrl: string;
@@ -37,8 +41,8 @@ export class UrlEntryService {
   }
 
   public makeShortUrl(key: string): string {
-    // TODO: взять из конфига
-    return `http://localhost:3000/${key}`;
+    const apiUrl = this.configService.get<string>('apiUrl');
+    return `${apiUrl}/${key}`;
   }
 
   public isSameUrlEntry(
