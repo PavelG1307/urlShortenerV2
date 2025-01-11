@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsDate, IsOptional } from 'class-validator';
+import { IsDate, IsOptional, IsString, IsUrl } from 'class-validator';
 import { IsDateInFuture } from 'src/decorators/is-date-in-future.decorator';
 
 export class CreateShortUrlResponseDto {
@@ -12,6 +12,7 @@ export class CreateShortUrlRequestBodyDto {
     description: 'Оригинальный URL',
     example: 'https://ya.ru',
   })
+  @IsUrl()
   readonly originalUrl: string;
 
   @ApiProperty({
@@ -24,4 +25,13 @@ export class CreateShortUrlRequestBodyDto {
   @IsOptional()
   @IsDateInFuture()
   readonly expiresAt?: Date;
+
+  @ApiProperty({
+    description: 'Кастомный alias',
+    example: 'my-custom-alias',
+    required: false,
+  })
+  @IsString()
+  @IsOptional()
+  readonly alias?: string;
 }

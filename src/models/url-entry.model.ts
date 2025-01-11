@@ -1,4 +1,10 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import {
+  Column,
+  CreatedAt,
+  DataType,
+  Model,
+  Table,
+} from 'sequelize-typescript';
 
 @Table({
   tableName: 'url_entries',
@@ -23,6 +29,14 @@ export class UrlEntry extends Model<UrlEntry> {
     allowNull: true,
   })
   expiresAt?: Date;
+
+  @Column({
+    type: DataType.DATE,
+    allowNull: false,
+    defaultValue: new Date(),
+  })
+  @CreatedAt
+  createdAt: Date;
 
   @Column({
     type: DataType.DATE,
