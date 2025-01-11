@@ -41,7 +41,17 @@ export function MainPage() {
                     {link.replace('https://', '')}
                 </div>
                 <div  className={styleClasses.buttonContainer}>
-                    <button>Копировать</button>
+                    <button
+                        onClick={() => {
+                            try {
+                                navigator.clipboard.writeText(link);
+                              } catch (err) {
+                                console.error('Ошибка:', err);
+                              }
+                        }}
+                    >
+                        Копировать
+                    </button>
                 </div>
             </div>
             : null

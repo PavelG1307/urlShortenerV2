@@ -27,6 +27,7 @@
     width: 120px;
     border: none;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .inputContainer {
@@ -66,4 +67,5 @@
     border: solid 1px #8694b066;
     padding-top: 10px;
     padding-bottom: 10px;
+    cursor: pointer;
 }
