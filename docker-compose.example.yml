@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: DSgasdhg
+      POSTGRES_DB: url_shortener_local
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  server:
+    build: ./server
+    environment:
+      NODE_ENV: production
+      PORT: 3010
+      API_PREFIX: /api/v1
+      DB_HOST: 127.0.0.1
+      DB_PORT: 5432
+      DB_USER: username
+      DB_PASSWORD: DSgasdhg
+      DB_NAME: url_shortener_local
+      ORIGINS: http://localhost:3000
+      HASH_SALT: dsdfsf
+      API_URL: http://localhost:3010
+    depends_on:
+      - db
+    networks:
+      - backend
+    ports:
+      - "3001:3001"
+
+  ui:
+    build: ./ui
+    depends_on:
+      - server
+    networks:
+      - backend
+    ports:
+      - "3000:3000"
+    environment:
+      REACT_APP_API_URL: "http://server:3001"
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  postgres_data:

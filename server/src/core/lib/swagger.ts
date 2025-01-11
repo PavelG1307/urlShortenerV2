@@ -9,7 +9,7 @@ export const initSwagger = (app: INestApplication) => {
   const config = new DocumentBuilder()
     .setTitle('URL shortener API')
     .setVersion('1.0.0')
-    .setDescription('API для сервиса сокращения ссылок')
+    .setDescription('API сервиса сокращения ссылок')
     .build();
 
   const options: SwaggerDocumentOptions = {
