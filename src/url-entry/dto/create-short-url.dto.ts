@@ -1,6 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsDate, IsOptional, IsString, IsUrl } from 'class-validator';
+import {
+  IsAlphanumeric,
+  IsDate,
+  IsOptional,
+  IsString,
+  IsUrl,
+  MaxLength,
+} from 'class-validator';
+import { MAX_KEY_LENGTH } from 'src/core/constants/key';
 import { IsDateInFuture } from 'src/decorators/is-date-in-future.decorator';
 
 export class CreateShortUrlResponseDto {
@@ -32,6 +40,8 @@ export class CreateShortUrlRequestBodyDto {
     required: false,
   })
   @IsString()
+  @MaxLength(MAX_KEY_LENGTH)
+  @IsAlphanumeric()
   @IsOptional()
   readonly alias?: string;
 }

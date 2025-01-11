@@ -6,6 +6,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
+import { MAX_KEY_LENGTH } from 'src/core/constants/key';
 
 @Table({
   tableName: 'url_clicks',
@@ -23,7 +24,7 @@ export class UrlClick extends Model<UrlClick> {
 
   @Index('url_clicks_key_index')
   @Column({
-    type: DataType.TEXT,
+    type: DataType.STRING(MAX_KEY_LENGTH),
     allowNull: false,
   })
   key: string;
@@ -37,7 +38,6 @@ export class UrlClick extends Model<UrlClick> {
   @Column({
     type: DataType.DATE,
     allowNull: false,
-    defaultValue: new Date(),
   })
   @CreatedAt
   createdAt: Date;

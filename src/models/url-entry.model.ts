@@ -5,6 +5,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
+import { MAX_KEY_LENGTH } from 'src/core/constants/key';
 
 @Table({
   tableName: 'url_entries',
@@ -13,7 +14,7 @@ import {
 })
 export class UrlEntry extends Model<UrlEntry> {
   @Column({
-    type: DataType.STRING(6),
+    type: DataType.STRING(MAX_KEY_LENGTH),
     primaryKey: true,
   })
   key: string;
@@ -33,7 +34,6 @@ export class UrlEntry extends Model<UrlEntry> {
   @Column({
     type: DataType.DATE,
     allowNull: false,
-    defaultValue: new Date(),
   })
   @CreatedAt
   createdAt: Date;

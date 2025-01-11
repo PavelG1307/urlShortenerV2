@@ -5,7 +5,7 @@ import {
   CreateShortUrlRequestBodyDto,
   CreateShortUrlResponseDto,
 } from './dto/create-short-url.dto';
-import { Op } from 'sequelize';
+import { Op, WhereOptions } from 'sequelize';
 import { UrlClick } from 'src/models/url-click.model';
 
 @Injectable()
@@ -73,15 +73,18 @@ export class UrlEntryService {
   }) {
     const { originalUrl, expiresAt, alias } = params;
 
+    const whereCondition: WhereOptions<UrlEntry> = {
+      originalUrl,
+      deletedAt: { [Op.is]: null },
+      expiresAt: expiresAt || { [Op.is]: null },
+    };
+
+    if (alias) {
+      whereCondition.key = alias;
+    }
+
     return UrlEntry.findOne({
-      where: {
-        originalUrl,
-        deletedAt: {
-          [Op.is]: null,
-        },
-        expiresAt: expiresAt || { [Op.is]: null },
-        key: alias || undefined,
-      },
+      where: whereCondition,
     });
   }
 
