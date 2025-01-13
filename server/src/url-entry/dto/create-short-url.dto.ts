@@ -21,6 +21,9 @@ export class CreateShortUrlRequestBodyDto {
     example: 'https://ya.ru',
   })
   @IsUrl()
+  @Transform(({ value }) =>
+    value.includes('http') ? value : `https://${value}`,
+  )
   readonly originalUrl: string;
 
   @ApiProperty({
